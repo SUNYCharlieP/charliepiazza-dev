@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>document.documentElement.classList.add('js');</script>
 <title>Charlie Piazza — iOS Developer</title>
-<meta name="description" content="Charlie Piazza is a self-taught iOS developer in Buffalo, NY. I design, build, and ship iOS apps solo, end to end — Jarvis, FloorSnap, and Arca.">
+<meta name="description" content="Charlie Piazza is a self-taught iOS developer in Buffalo, NY. FloorSnap, his LiDAR flooring estimator, is live on the App Store, with Jarvis and Arca on the way.">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#F5F2EC">
 <link rel="canonical" href="https://charliepiazza.dev/">
@@ -14,7 +14,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://charliepiazza.dev/">
 <meta property="og:title" content="Charlie Piazza — iOS Developer">
-<meta property="og:description" content="I design, build, and ship iOS apps solo, end to end — Jarvis, FloorSnap, and Arca.">
+<meta property="og:description" content="FloorSnap, my LiDAR flooring estimator, is live on the App Store. I design, build, and ship iOS apps solo, end to end.">
 <meta property="og:image" content="https://charliepiazza.dev/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -22,7 +22,7 @@
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Charlie Piazza — iOS Developer">
-<meta name="twitter:description" content="I design, build, and ship iOS apps solo, end to end — Jarvis, FloorSnap, and Arca.">
+<meta name="twitter:description" content="FloorSnap, my LiDAR flooring estimator, is live on the App Store. I design, build, and ship iOS apps solo, end to end.">
 <meta name="twitter:image" content="https://charliepiazza.dev/assets/og-image.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,7 +58,7 @@
   .wrap { max-width: 1280px; margin: 0 auto; padding-left: clamp(24px, 6vw, 80px); padding-right: clamp(24px, 6vw, 80px); }
 
   /* Visible focus for keyboard users */
-  a:focus-visible, .appstore:focus-visible {
+  a:focus-visible {
     outline: 2px solid var(--blue);
     outline-offset: 3px;
     border-radius: 2px;
@@ -100,6 +100,7 @@
   .eyebrow .rule { display: inline-block; width: 38px; height: 1px; background: var(--blue); }
   h1 { font-size: clamp(40px, 6.4vw, 80px); line-height: 1.0; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 32px; max-width: 15ch; }
   .lede { font-size: clamp(17px, 2vw, 20px); line-height: 1.6; color: var(--body); margin: 0; max-width: 52ch; text-wrap: pretty; }
+  .hero-note { font-size: clamp(15px, 1.7vw, 17px); line-height: 1.5; color: var(--body); font-weight: 500; margin: 22px 0 0; max-width: 52ch; text-wrap: pretty; }
   .hero-art { flex: 0 0 auto; margin: 0 auto; }
 
   /* ---------- Phone frame ---------- */
@@ -130,13 +131,15 @@
   figure.shot:hover { transform: translateY(-8px); }
   figure.shot figcaption { font-size: 10px; letter-spacing: 0.1em; color: var(--muted); margin-top: 13px; text-align: center; }
 
-  /* ---------- TestFlight / App Store CTA ---------- */
+  /* ---------- App Store badge (official Apple asset) ---------- */
   .appstore-wrap { margin-top: clamp(32px, 4vw, 44px); }
-  .appstore { display: inline-flex; align-items: center; gap: 11px; background: var(--ink); color: #fff; text-decoration: none; padding: 11px 20px; border-radius: 13px; box-shadow: 0 8px 22px -10px rgba(26,24,21,0.55); transition: transform .2s ease, box-shadow .2s ease; }
-  .appstore:hover { transform: translateY(-3px); box-shadow: 0 14px 30px -10px rgba(26,24,21,0.6); }
-  .appstore .label { display: flex; flex-direction: column; line-height: 1.15; text-align: left; }
-  .appstore .label small { font-size: 9px; font-weight: 400; letter-spacing: 0.02em; opacity: 0.82; }
-  .appstore .label b { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+  .appstore-badge { display: inline-block; border-radius: 8px; transition: transform .2s ease; }
+  .appstore-badge img { display: block; height: clamp(48px, 5.5vw, 54px); width: auto; }
+  .appstore-badge:hover { transform: translateY(-3px); }
+  /* Demoted secondary line under the badge (v2 TestFlight) */
+  .appstore-sub { font-size: 12px; line-height: 1.5; color: var(--muted); margin: 14px 0 0; }
+  .appstore-sub a { color: var(--blue); text-decoration: none; }
+  .appstore-sub a:hover { text-decoration: underline; }
 
   /* ---------- Background ---------- */
   .bg-section { padding-top: clamp(40px, 6vw, 80px); padding-bottom: clamp(56px, 8vw, 100px); }
@@ -191,6 +194,12 @@
       <div class="eyebrow mono"><span class="rule"></span>iOS DEVELOPER · BUFFALO, NY</div>
       <h1>I build the iOS apps I wish existed.</h1>
       <p class="lede">I design, build, and ship iOS apps solo, from the first sketch to the App Store. Three of them are below.</p>
+      <p class="hero-note">FloorSnap, my LiDAR flooring estimator, is live on the App Store.</p>
+      <div class="appstore-wrap">
+        <a class="appstore-badge" href="https://apps.apple.com/app/id6781897515" target="_blank" rel="noopener noreferrer">
+          <img src="assets/download-on-app-store.svg" width="120" height="40" alt="Download FloorSnap on the App Store">
+        </a>
+      </div>
     </div>
     <div class="hero-art">
       <div class="phone phone-hero">
@@ -234,7 +243,7 @@
             <h2>FloorSnap</h2>
           </div>
         </div>
-        <div class="status mono"><strong class="dark">IN BETA</strong><br>SWIFTUI · iOS</div>
+        <div class="status mono"><strong class="live">LIVE ON THE APP STORE</strong><br>SWIFTUI · iOS</div>
       </div>
       <p class="project-desc">Snap a room, get square footage, and send a client-ready estimate in minutes. Built for the way contractors actually measure and quote jobs: from the field, not the office.</p>
       <div class="shots">
@@ -244,11 +253,10 @@
         <figure class="shot"><div class="phone"><div class="screen"><img src="assets/floorsnap-bid.jpg" loading="lazy" decoding="async" alt="FloorSnap multi-room job bid with PDF export"></div></div><figcaption class="mono">CLIENT BID</figcaption></figure>
       </div>
       <div class="appstore-wrap">
-        <!-- TODO: when FloorSnap ships, change the status above to ON THE APP STORE (use class="live"),
-             and swap this CTA back to the App Store badge linking to the real https://apps.apple.com/... URL -->
-        <a class="appstore" href="mailto:cpiazza717@gmail.com?subject=FloorSnap%20TestFlight%20access" aria-label="Request FloorSnap TestFlight access by email">
-          <span class="label"><small>FloorSnap is in private beta</small><b>Request&nbsp;TestFlight&nbsp;access&nbsp;→</b></span>
+        <a class="appstore-badge" href="https://apps.apple.com/app/id6781897515" target="_blank" rel="noopener noreferrer">
+          <img src="assets/download-on-app-store.svg" width="120" height="40" alt="Download FloorSnap on the App Store">
         </a>
+        <p class="appstore-sub mono">Testing the next version? <a href="mailto:cpiazza717@gmail.com?subject=FloorSnap%20v2%20TestFlight%20access">Request access.</a></p>
       </div>
     </article>
 
@@ -262,7 +270,7 @@
             <h2>Arca</h2>
           </div>
         </div>
-        <div class="status mono"><strong class="dark">IN DEVELOPMENT</strong><br>SWIFTUI · iOS</div>
+        <div class="status mono"><strong class="dark">COMING SOON</strong><br>SWIFTUI · iOS</div>
       </div>
       <p class="project-desc">A tech-news reader that respects your time. AI-curated Top Picks across Apple, general tech, and Hacker News, a built-in podcast player for hands-free listening, a distraction-free reader mode, and save-for-later, all in one calm, fast app.</p>
       <div class="shots">
@@ -280,7 +288,7 @@
       <div class="bg-label mono">BACKGROUND</div>
       <div class="bg-body">
         <p class="bg-lead">I taught myself to build and ship iOS apps, end to end.</p>
-        <p class="bg-text">Before code, I spent fifteen years owning and running CAP Flooring in Buffalo: estimating, installing, managing crews, carrying a business end to end. That's where I learned to scope, deliver, and own the outcome. Now I write Swift, ship multiple apps with AI tooling as a force multiplier, and I'm finishing an AAS in IT at SUNY Erie before transferring to SUNY Empire State for a BS in Information Technology.</p>
+        <p class="bg-text">Before code, I spent fourteen years owning and running CAP Flooring in Buffalo: estimating, installing, managing crews, carrying a business end to end. That's where I learned to scope, deliver, and own the outcome. Now I write Swift, ship multiple apps with AI tooling as a force multiplier, and I'm finishing an AAS in IT at SUNY Erie before transferring to SUNY Empire State for a BS in Information Technology.</p>
       </div>
     </div>
   </section>
