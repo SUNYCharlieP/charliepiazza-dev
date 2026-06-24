@@ -161,6 +161,49 @@
   .links a:hover { text-decoration: underline; }
   .copyright { font-size: 11px; letter-spacing: 0.1em; color: var(--footnote); margin-top: clamp(44px, 6vw, 72px); }
 
+  /* ---------- Hire signal (hero) ---------- */
+  .hero-hire { display: flex; align-items: center; gap: 9px; color: var(--ink); font-weight: 600; }
+  .hero-hire .hire-dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--blue-2); box-shadow: 0 0 0 4px rgba(23,122,67,0.16); }
+
+  /* ---------- Forms (lead capture) — additive; uses existing tokens ---------- */
+  .field {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 14px; color: var(--ink);
+    background: #FBFAF7; border: 1px solid var(--hairline); border-radius: 10px;
+    padding: 12px 14px; width: 100%;
+    -webkit-appearance: none; appearance: none;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .field::placeholder { color: var(--muted); }
+  .field:focus-visible { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(29,78,216,0.14); }
+  .field-area { resize: vertical; min-height: 112px; line-height: 1.6; }
+  .btn-fill {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13px; letter-spacing: 0.04em; font-weight: 600;
+    color: #fff; background: var(--ink); border: 1px solid var(--ink); border-radius: 10px;
+    padding: 12px 22px; cursor: pointer; white-space: nowrap;
+    transition: transform .15s ease, opacity .15s ease;
+  }
+  .btn-fill:hover { transform: translateY(-2px); }
+  .btn-fill:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+  .btn-fill:disabled { opacity: .55; cursor: default; transform: none; }
+  .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  .beta-form { margin-top: 16px; max-width: 460px; }
+  .beta-label { display: block; font-size: 12px; line-height: 1.5; color: var(--muted); margin-bottom: 10px; }
+  .beta-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .beta-row .field { flex: 1 1 210px; }
+  .beta-row .btn-fill { flex: 0 0 auto; }
+
+  .contact-form { max-width: 560px; margin-top: clamp(30px, 4.5vw, 44px); }
+  .contact-fields { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+  .contact-fields .field { flex: 1 1 200px; }
+  .contact-form .btn-fill { margin-top: 14px; }
+
+  .form-success { display: none; font-size: 14px; line-height: 1.6; color: var(--blue-2); margin: 0; max-width: 52ch; }
+  .netlify-form.is-sent .form-fields { display: none; }
+  .netlify-form.is-sent .form-success { display: block; }
+
   /* ---------- Scroll reveal (gated behind .js so content shows without JS) ---------- */
   .js [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
   .js [data-reveal].is-visible { opacity: 1; transform: none; }
@@ -194,6 +237,7 @@
       <div class="eyebrow mono"><span class="rule"></span>iOS DEVELOPER · BUFFALO, NY</div>
       <h1>I build the iOS apps I wish existed.</h1>
       <p class="lede">I design, build, and ship iOS apps solo, from the first sketch to the App Store. Three of them are below.</p>
+      <p class="hero-note hero-hire"><span class="hire-dot" aria-hidden="true"></span>Available for contract iOS work.</p>
       <p class="hero-note">FloorSnap, my LiDAR flooring estimator, is live on the App Store.</p>
       <div class="appstore-wrap">
         <a class="appstore-badge" href="https://apps.apple.com/app/id6781897515" target="_blank" rel="noopener noreferrer">
@@ -256,7 +300,18 @@
         <a class="appstore-badge" href="https://apps.apple.com/app/id6781897515" target="_blank" rel="noopener noreferrer">
           <img src="assets/download-on-app-store.svg" width="120" height="40" alt="Download FloorSnap on the App Store">
         </a>
-        <p class="appstore-sub mono">Testing the next version? <a href="mailto:cpiazza717@gmail.com?subject=FloorSnap%20v2%20TestFlight%20access">Request access.</a></p>
+        <form class="netlify-form beta-form mono" name="floorsnap-beta" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" aria-label="Request FloorSnap v2 TestFlight access">
+          <input type="hidden" name="form-name" value="floorsnap-beta">
+          <p class="hp-field" aria-hidden="true"><label>Leave this empty <input tabindex="-1" autocomplete="off" name="bot-field"></label></p>
+          <div class="form-fields">
+            <label class="beta-label" for="beta-email">Testing the next version? Request v2 TestFlight access.</label>
+            <div class="beta-row">
+              <input id="beta-email" class="field" type="email" name="email" required placeholder="you@email.com" autocomplete="email">
+              <button class="btn-fill" type="submit">Request access</button>
+            </div>
+          </div>
+          <p class="form-success" role="status">Thanks. You're on the v2 list, I'll send a TestFlight invite.</p>
+        </form>
       </div>
     </article>
 
@@ -270,7 +325,7 @@
             <h2>Arca</h2>
           </div>
         </div>
-        <div class="status mono"><strong class="dark">COMING SOON</strong><br>SWIFTUI · iOS</div>
+        <div class="status mono"><strong class="dark">IN REVIEW</strong><br>SWIFTUI · iOS</div>
       </div>
       <p class="project-desc">A tech-news reader that respects your time. AI-curated Top Picks across Apple, general tech, and Hacker News, a built-in podcast player for hands-free listening, a distraction-free reader mode, and save-for-later, all in one calm, fast app.</p>
       <div class="shots">
@@ -288,7 +343,7 @@
       <div class="bg-label mono">BACKGROUND</div>
       <div class="bg-body">
         <p class="bg-lead">I taught myself to build and ship iOS apps, end to end.</p>
-        <p class="bg-text">Before code, I spent fourteen years owning and running CAP Flooring in Buffalo: estimating, installing, managing crews, carrying a business end to end. That's where I learned to scope, deliver, and own the outcome. Now I write Swift, ship multiple apps with AI tooling as a force multiplier, and I'm finishing an AAS in IT at SUNY Erie before transferring to SUNY Empire State for a BS in Information Technology.</p>
+        <p class="bg-text">Before code, I spent fourteen years owning and running CAP Flooring in Buffalo: estimating, installing, managing crews, carrying a business end to end. That's where I learned to scope, deliver, and own the outcome. Now I write Swift and ship production iOS apps on a pipeline that catches regressions before release, and I'm finishing an AAS in IT at SUNY Erie before transferring to SUNY Empire State for a BS in Information Technology.</p>
       </div>
     </div>
   </section>
@@ -307,6 +362,21 @@
         <a href="https://github.com/SUNYCharlieP" target="_blank" rel="noopener noreferrer">github.com/SUNYCharlieP</a>
       </div>
     </div>
+
+    <form class="netlify-form contact-form mono" name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" aria-label="Send Charlie a message" data-reveal>
+      <input type="hidden" name="form-name" value="contact">
+      <p class="hp-field" aria-hidden="true"><label>Leave this empty <input tabindex="-1" autocomplete="off" name="bot-field"></label></p>
+      <div class="form-fields">
+        <div class="contact-fields">
+          <input class="field" type="text" name="name" required placeholder="Name" autocomplete="name" aria-label="Your name">
+          <input class="field" type="email" name="email" required placeholder="Email" autocomplete="email" aria-label="Your email">
+        </div>
+        <textarea class="field field-area" name="message" rows="4" required placeholder="What are you building?" aria-label="Your message"></textarea>
+        <button class="btn-fill" type="submit">Send</button>
+      </div>
+      <p class="form-success" role="status">Thanks, message received. I'll get back to you soon.</p>
+    </form>
+
     <div class="copyright mono">© 2026 CHARLIE PIAZZA · BUFFALO, NY</div>
   </footer>
 
@@ -339,6 +409,39 @@
       els.forEach(function (el) { io.observe(el); });
       // Safety net: never leave content hidden.
       setTimeout(function () { els.forEach(function (el) { el.classList.add('is-visible'); }); }, 2500);
+    })();
+  </script>
+
+  <script>
+    // Netlify Forms — AJAX submit so the visitor stays on the page (progressive enhancement;
+    // with JS off, the form posts normally and Netlify shows its own success page).
+    (function () {
+      function encode(data) {
+        return Object.keys(data).map(function (k) {
+          return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
+        }).join('&');
+      }
+      var forms = document.querySelectorAll('form[data-netlify="true"]');
+      Array.prototype.forEach.call(forms, function (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var data = {};
+          new FormData(form).forEach(function (v, k) { data[k] = v; });
+          var btn = form.querySelector('button[type="submit"]');
+          if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = 'Sending…'; }
+          fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: encode(data)
+          }).then(function (res) {
+            if (!res.ok) throw new Error('bad status ' + res.status);
+            form.classList.add('is-sent');
+          }).catch(function () {
+            if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label || 'Send'; }
+            window.alert("Something went wrong. Email cpiazza717@gmail.com and I'll get right back to you.");
+          });
+        });
+      });
     })();
   </script>
 </body>
