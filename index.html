@@ -201,8 +201,11 @@
   .contact-form .btn-fill { margin-top: 14px; }
 
   .form-success { display: none; font-size: 14px; line-height: 1.6; color: var(--blue-2); margin: 0; max-width: 52ch; }
-  .netlify-form.is-sent .form-fields { display: none; }
-  .netlify-form.is-sent .form-success { display: block; }
+  .form-error { font-size: 14px; line-height: 1.6; color: var(--ink); margin: 14px 0 0; max-width: 52ch; }
+  .netlify-form.is-sent .form-fields,
+  .buttondown-form.is-sent .form-fields { display: none; }
+  .netlify-form.is-sent .form-success,
+  .buttondown-form.is-sent .form-success { display: block; }
 
   /* ---------- Scroll reveal (gated behind .js so content shows without JS) ---------- */
   .js [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
@@ -334,6 +337,19 @@
         <figure class="shot"><div class="phone"><div class="screen"><img src="assets/arca-player.jpg" loading="lazy" decoding="async" alt="Arca podcast player"></div></div><figcaption class="mono">LISTEN</figcaption></figure>
         <figure class="shot"><div class="phone"><div class="screen"><img src="assets/arca-saved.jpg" loading="lazy" decoding="async" alt="Arca saved articles"></div></div><figcaption class="mono">SAVED</figcaption></figure>
       </div>
+      <div class="appstore-wrap">
+        <form class="buttondown-form beta-form mono" action="https://buttondown.com/api/emails/embed-subscribe/piazza" method="post" aria-label="Get notified when Arca launches">
+          <div class="form-fields">
+            <label class="beta-label" for="arca-email">Want it at launch? I'll email you the day Arca ships.</label>
+            <div class="beta-row">
+              <input id="arca-email" class="field" type="email" name="email" required placeholder="you@email.com" autocomplete="email">
+              <button class="btn-fill" type="submit">Notify me at launch</button>
+            </div>
+          </div>
+          <p class="form-success" role="status">You're on the list. I'll email you when Arca ships.</p>
+          <p class="form-error" role="alert" hidden>Couldn't reach the server. Check your connection and try again.</p>
+        </form>
+      </div>
     </article>
   </section>
 
@@ -440,6 +456,39 @@
             if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label || 'Send'; }
             window.alert("Something went wrong. Email cpiazza717@gmail.com and I'll get right back to you.");
           });
+        });
+      });
+    })();
+  </script>
+
+  <script>
+    // Arca launch waitlist — posts to Buttondown via fetch so the visitor stays on the page
+    // and sees an inline confirmation instead of Buttondown's hosted page. The embed endpoint
+    // is keyless and cross-origin, so we send a no-cors POST: the subscribe lands on Buttondown's
+    // side and a resolved promise means the request went out. A rejected promise means the
+    // network is down, so we re-enable the button and show an inline retry message. With JS off,
+    // the form posts natively to Buttondown (its own confirmation page).
+    (function () {
+      var form = document.querySelector('.buttondown-form');
+      if (!form) return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = form.querySelector('input[type="email"]');
+        if (!email || !email.value) return;
+        var btn = form.querySelector('button[type="submit"]');
+        var err = form.querySelector('.form-error');
+        if (err) err.hidden = true;
+        if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = 'Sending…'; }
+        fetch(form.action, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: 'email=' + encodeURIComponent(email.value)
+        }).then(function () {
+          form.classList.add('is-sent');
+        }).catch(function () {
+          if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label || 'Notify me at launch'; }
+          if (err) err.hidden = false;
         });
       });
     })();
