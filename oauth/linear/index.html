@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Returning to Harness…</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%231A1815'/%3E%3Ctext%20x='32'%20y='44'%20font-family='monospace'%20font-size='30'%20font-weight='700'%20fill='%23ffffff'%20text-anchor='middle'%3Ecp%3C/text%3E%3C/svg%3E">
+  <style>
+    :root { --paper:#F5F2EC; --ink:#1A1815; --body:#4A463E; --muted:#6B675E; --blue:#1D4ED8; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      font-family: Inter, system-ui, sans-serif;
+      background: var(--paper); color: var(--ink);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 24px;
+    }
+    .card { max-width: 360px; }
+    .mark {
+      width: 52px; height: 52px; border-radius: 13px; background: var(--ink);
+      color: #fff; font-family: ui-monospace, monospace; font-weight: 700; font-size: 24px;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 22px;
+    }
+    h1 { font-size: 19px; font-weight: 600; margin: 0 0 8px; letter-spacing: -0.01em; }
+    p { font-size: 14px; line-height: 1.55; color: var(--body); margin: 0 0 20px; }
+    a.btn {
+      display: inline-block; background: var(--ink); color: #fff; text-decoration: none;
+      font-size: 14px; font-weight: 500; padding: 11px 20px; border-radius: 11px;
+    }
+    .err { color: #B4322A; }
+    .hint { font-size: 12px; color: var(--muted); margin-top: 18px; }
+    @media (prefers-color-scheme: dark) {
+      :root { --paper:#141210; --ink:#F2EEE6; --body:#B8B2A6; --muted:#8A8578; }
+      .mark { background: #F2EEE6; color: #141210; }
+      a.btn { background: #F2EEE6; color: #141210; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="mark">H</div>
+    <h1 id="title">Returning to Harness…</h1>
+    <p id="msg">One moment while we hand you back to the app.</p>
+    <a class="btn" id="cta" href="#">Open Harness</a>
+    <div class="hint" id="hint">If nothing happens, tap the button above.</div>
+  </div>
+  <script>
+    // OAuth bounce: Linear redirects here (an https URL it accepts), and this page hands the
+    // authorization code back to the native app over its custom scheme. ASWebAuthenticationSession
+    // in Harness watches for "harness://" and closes the sheet the instant this fires.
+    (function () {
+      var query = window.location.search || "";
+      var target = "harness://oauth/linear" + query;
+      var params = new URLSearchParams(query);
+      var cta = document.getElementById("cta");
+      cta.setAttribute("href", target);
+
+      if (params.get("error")) {
+        // Linear denied or the user cancelled — still bounce so the app can surface it cleanly.
+        document.getElementById("title").textContent = "Sign-in didn’t complete";
+        document.getElementById("title").className = "err";
+        document.getElementById("msg").textContent =
+          params.get("error_description") || "You can close this and try connecting again in Harness.";
+      }
+      // Fire the hand-off. replace() keeps this page out of history.
+      window.location.replace(target);
+    })();
+  </script>
+</body>
+</html>
